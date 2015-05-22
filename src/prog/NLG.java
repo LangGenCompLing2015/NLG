@@ -1,4 +1,4 @@
-package entry;
+package prog;
 
 import simplenlg.framework.*;
 import simplenlg.lexicon.*;
