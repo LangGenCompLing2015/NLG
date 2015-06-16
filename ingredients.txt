@@ -1,0 +1,1 @@
+1,liter,water;2,slice,tomato;1,,tomato;1,liter,water;2,slice,tomato
