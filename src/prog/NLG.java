@@ -23,7 +23,7 @@ public class NLG {
         private static final String[] VERBLIST = { "need", "require" };
         private static final String[] CONJLIST = { "and", "and also", "as well as" };
         private static final String[] CONNLIST = { "furthermore", "additionally",
-                        "also" };
+                        "also","moreover" };
         public static void main(String[] args) {
                 NLG nlg = new NLG();
                 nlg.start();
