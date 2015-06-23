@@ -23,7 +23,7 @@ import simplenlg.realiser.english.Realiser;
 
 /**
  * Class for creating sentences which describe, what ingredients are needed for the recipe.
- * @author Bachmann, Wellhausen
+ * @author Bachmann, Czichon, Siewerts, Spinnreker, Wellhausen
  *
  */
 public class IngredientBuilder implements Builder {
@@ -53,6 +53,7 @@ public class IngredientBuilder implements Builder {
 	private void initialize() {
 		WORDMAP.put("tbsp", "tablespoon");
 		WORDMAP.put("gr", "gramm");
+		WORDMAP.put("g", "gramm");
 		WORDMAP.put("l", "liter");
 		WORDMAP.put("ml", "milliliter");
 		WORDMAP.put("tsp", "teaspoon");
