@@ -30,6 +30,8 @@ public class NLG {
 			builder = new InstructionBuilder(parameters);
 		} else if (type.startsWith("ingredients") && !parameters.isEmpty()) {
 			builder = new IngredientBuilder(parameters);
+		} else if (type.startsWith("error") && !parameters.isEmpty()) {
+			builder = new ErrorBuilder(parameters);	
 		} else {
 			// TODO What is the right behavior?
 			throw new IllegalArgumentException(
