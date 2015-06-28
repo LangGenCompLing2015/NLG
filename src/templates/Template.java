@@ -1,10 +1,7 @@
 package templates;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import features.Feature;
@@ -24,11 +21,11 @@ public class Template {
 	}
 	
 	public boolean matches(String verbType,List<List<Feature>> features){
-		if(verbType!= this.verbType){
+		if(!verbType.equals(this.verbType)){
 			return false;
 		}
 		Set<List<Feature>> keySet = featureMap.keySet();
-		if(keySet.size() != features.size()){
+		if(featureMap.size() != features.size()){
 			return false;
 		}
 		int i = 0;
@@ -42,5 +39,18 @@ public class Template {
 			i++;
 		}
 		return true;
+	}
+	
+	public String toString(List<String> wordList) {
+		int i = 0;
+		StringBuilder sb=new StringBuilder();
+		for(List<String> l : featureMap.values()){
+			for(String s: l){
+				String word = wordList.get(i);
+				sb.append(s+" " + word + " ");
+				i++;
+			}
+		}
+		return sb.toString();
 	}
 }

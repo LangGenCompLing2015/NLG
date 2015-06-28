@@ -2,10 +2,11 @@ package prog;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import features.Feature;
 import lexicon.NLGLexicon;
 import simplenlg.framework.WordElement;
 import simplenlg.lexicon.Lexicon;
@@ -17,34 +18,53 @@ public class InstructionBuilder implements Builder{
 	private final String instructions;
 	private NLGLexicon lexicon;
 	
-	private String obj1;
-	
-	private String obj2;
-	
 	private String verbType;
 	
 	public InstructionBuilder(String ins){
 		instructions=ins;
 		finder = new InstructionTemplateFinder();
 		lexicon = new NLGLexicon();
-		//setupTemplates();
+		setupTemplates();
 		lexicon.setUpLexicon();
 	}
 	public void start(){
 		Lexicon lex = lexicon.getLexicon();
-		WordElement toast = lex.getWord(obj1);
-		Map<String,Object> toastFeatures;
-		toastFeatures = toast.getAllFeatures();
-		//List<Template> findTemplate = finder.findTemplate(new ArrayList<String>(), toastFeatures, new ArrayList<String>());
+		List<String> inputWords = getWordsFromInput();
+		List<Map<String,Object>> featureList = new ArrayList<Map<String,Object>>();
+		for(String s : inputWords){
+			WordElement w = lex.getWord(s);
+			Map<String,Object> wordFeature = w.getAllFeatures();
+			featureList.add(wordFeature);
+			
+		}
+		List<Template> possibleTemplates = finder.findTemplate(verbType,featureList);
+		Template t = possibleTemplates.get(0);
+		System.out.println(t.toString(inputWords));
 	}
 	
-	private void parseInput(){
-		
+	private List<String> getWordsFromInput(){
+		List<String> inputWords = new ArrayList<String>(); 
+		String[] split = instructions.split(",");
+		verbType = split[0];
+		for (int i = 1 ; i<split.length;i++){
+			inputWords.add(split[i]);
+		}
+		return inputWords;
 	}
 	
-//	private void setupTemplates(){
-//		Template t = new Template();
-//		t.addObj1Feature("flat");
-//		finder.addTemplate(t);
-//	}
+	private void setupTemplates(){
+		LinkedHashMap<List<Feature>,List<String>> map = new LinkedHashMap<List<Feature>, List<String>>();
+		List<Feature> featureList1 = new ArrayList<Feature>();
+		List<Feature> featureList2 = new ArrayList<Feature>();
+		featureList1.add(new Feature("shape","flat"));
+		featureList2.add(new Feature("shape","flat"));
+		List<String> valueList1 = new ArrayList<String>();
+		List<String> valueList2 = new ArrayList<String>();
+		valueList1.add("place");
+		valueList2.add("on");
+		map.put(featureList1, valueList1);
+		map.put(featureList2, valueList2);
+		Template t = new Template("placing",map);
+		finder.addTemplate(t);
+	}
 }

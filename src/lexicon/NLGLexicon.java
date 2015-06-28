@@ -13,6 +13,7 @@ public class NLGLexicon {
 	public void setUpLexicon(){
 		WordElement toast = lexicon.getWord("toast");
 		toast.setFeature("shape", "flat");
-		toast.getAllFeatures();
+		WordElement table = lexicon.getWord("table");
+		table.setFeature("shape", "flat");
 	}
 }
