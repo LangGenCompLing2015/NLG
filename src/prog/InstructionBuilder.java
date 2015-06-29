@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import features.Feature;
 import lexicon.NLGLexicon;
@@ -31,6 +32,7 @@ public class InstructionBuilder implements Builder{
 		Lexicon lex = lexicon.getLexicon();
 		List<String> inputWords = getWordsFromInput();
 		List<Map<String,Object>> featureList = new ArrayList<Map<String,Object>>();
+		Random r = new Random();
 		for(String s : inputWords){
 			WordElement w = lex.getWord(s);
 			Map<String,Object> wordFeature = w.getAllFeatures();
@@ -38,7 +40,7 @@ public class InstructionBuilder implements Builder{
 			
 		}
 		List<Template> possibleTemplates = finder.findTemplate(verbType,featureList);
-		Template t = possibleTemplates.get(0);
+		Template t = possibleTemplates.get(r.nextInt(possibleTemplates.size()));
 		System.out.println(t.toString(inputWords));
 	}
 	
@@ -62,6 +64,7 @@ public class InstructionBuilder implements Builder{
 		List<String> valueList2 = new ArrayList<String>();
 		valueList1.add("place");
 		valueList2.add("on");
+		valueList2.add("on top of");
 		map.put(featureList1, valueList1);
 		map.put(featureList2, valueList2);
 		Template t = new Template("placing",map);
