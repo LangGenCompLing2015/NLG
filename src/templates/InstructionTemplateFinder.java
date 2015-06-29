@@ -6,6 +6,10 @@ import java.util.Map;
 
 import features.Feature;
 
+/**
+ * Utility class for saving all templates and searching for matching ones
+ *
+ */
 public class InstructionTemplateFinder {
 
 	private List<Template> templates;
@@ -14,6 +18,13 @@ public class InstructionTemplateFinder {
 		templates = new ArrayList<Template>();
 	}
 
+	/**
+	 * Method, which searches all existing templates for ones, that fit the
+	 * features of the given words.
+	 * @param verbType the verb type specified in the message (e.g. "placing")
+	 * @param wordFeatures features of all words in the message
+	 * @return a list of matching templates
+	 */
 	public List<Template> findTemplate(String verbType,
 			List<Map<String, Object>> wordFeatures) {
 		List<Template> temp = new ArrayList<Template>();

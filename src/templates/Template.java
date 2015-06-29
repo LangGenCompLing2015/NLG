@@ -44,6 +44,14 @@ public class Template {
 		return true;
 	}
 
+	/**
+	 * Custom toString method, since out method needs the correct words
+	 * to fit into the blanks of this template. Takes the words from the
+	 * input and the possible mathing words from the template and builds
+	 * a sentence from them.
+	 * @param wordList the words from the input
+	 * @return the sentence
+	 */
 	public String toString(List<String> wordList) {
 		Random r = new Random();
 		int i = 0;

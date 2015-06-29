@@ -14,6 +14,10 @@ import simplenlg.lexicon.Lexicon;
 import templates.InstructionTemplateFinder;
 import templates.Template;
 
+/**
+ * Class, which builds instruction-phrases from the given message.
+ *
+ */
 public class InstructionBuilder implements Builder{
 	private InstructionTemplateFinder finder ;
 	private final String instructions;
@@ -44,6 +48,10 @@ public class InstructionBuilder implements Builder{
 		System.out.println(t.toString(inputWords));
 	}
 	
+	/**
+	 * Read all words from the input message. 
+	 * @return the list with words, not including the verb type.
+	 */
 	private List<String> getWordsFromInput(){
 		List<String> inputWords = new ArrayList<String>(); 
 		String[] split = instructions.split(",");
@@ -54,6 +62,10 @@ public class InstructionBuilder implements Builder{
 		return inputWords;
 	}
 	
+	//TODO this Method needs to be more user-friendly. Possibly reading from text file?
+	/**
+	 * Method for setting up the templates.
+	 */
 	private void setupTemplates(){
 		LinkedHashMap<List<Feature>,List<String>> map = new LinkedHashMap<List<Feature>, List<String>>();
 		List<Feature> featureList1 = new ArrayList<Feature>();
@@ -70,4 +82,5 @@ public class InstructionBuilder implements Builder{
 		Template t = new Template("placing",map);
 		finder.addTemplate(t);
 	}
+	
 }

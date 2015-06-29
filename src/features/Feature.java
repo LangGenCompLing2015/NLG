@@ -1,5 +1,9 @@
 package features;
 
+/**
+ * Class, which represents one feature of a word. Every feature has a name and a value.
+ *
+ */
 public class Feature {
 
 	private String key;
