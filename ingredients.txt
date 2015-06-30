@@ -1,1 +1,1 @@
-error:3
+instructions:placing,toast,desk
