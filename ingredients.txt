@@ -1,1 +1,1 @@
-instructions:placing,toast,table
+instructions:placing,toast,desk
