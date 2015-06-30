@@ -1,6 +1,5 @@
 package prog;
 
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,71 +15,97 @@ import templates.Template;
 
 /**
  * Class, which builds instruction-phrases from the given message.
- *
+ * 
  */
-public class InstructionBuilder implements Builder{
-	private InstructionTemplateFinder finder ;
+public class InstructionBuilder implements Builder {
+	private InstructionTemplateFinder finder;
 	private final String instructions;
 	private NLGLexicon lexicon;
-	
+
 	private String verbType;
-	
-	public InstructionBuilder(String ins){
-		instructions=ins;
+
+	public InstructionBuilder(String ins) {
+		instructions = ins;
 		finder = new InstructionTemplateFinder();
 		lexicon = new NLGLexicon();
 		setupTemplates();
 		lexicon.setUpLexicon();
 	}
-	public void start(){
+
+	public void start() {
 		Lexicon lex = lexicon.getLexicon();
 		List<String> inputWords = getWordsFromInput();
-		List<Map<String,Object>> featureList = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> featureList = new ArrayList<Map<String, Object>>();
 		Random r = new Random();
-		for(String s : inputWords){
+		for (String s : inputWords) {
 			WordElement w = lex.getWord(s);
-			Map<String,Object> wordFeature = w.getAllFeatures();
+			Map<String, Object> wordFeature = w.getAllFeatures();
 			featureList.add(wordFeature);
-			
+
 		}
-		List<Template> possibleTemplates = finder.findTemplate(verbType,featureList);
-		Template t = possibleTemplates.get(r.nextInt(possibleTemplates.size()));
-		System.out.println(t.toString(inputWords));
+		// V: debug
+		try {
+			List<Template> possibleTemplates = finder.findTemplate(verbType,
+					featureList);
+			Template t = possibleTemplates.get(r.nextInt(possibleTemplates
+					.size()));
+			System.out.println(t.toString(inputWords));
+		} catch (Exception e) {
+			System.err.println("No matching templates found!");
+		}
 	}
-	
+
 	/**
-	 * Read all words from the input message. 
+	 * Read all words from the input message.
+	 * 
 	 * @return the list with words, not including the verb type.
 	 */
-	private List<String> getWordsFromInput(){
-		List<String> inputWords = new ArrayList<String>(); 
+	private List<String> getWordsFromInput() {
+		List<String> inputWords = new ArrayList<String>();
 		String[] split = instructions.split(",");
 		verbType = split[0];
-		for (int i = 1 ; i<split.length;i++){
+		for (int i = 1; i < split.length; i++) {
 			inputWords.add(split[i]);
 		}
 		return inputWords;
 	}
-	
-	//TODO this Method needs to be more user-friendly. Possibly reading from text file?
+
+	// TODO this Method needs to be more user-friendly. Possibly reading from
+	// text file?
 	/**
 	 * Method for setting up the templates.
 	 */
-	private void setupTemplates(){
-		LinkedHashMap<List<Feature>,List<String>> map = new LinkedHashMap<List<Feature>, List<String>>();
+	private void setupTemplates() {
+		LinkedHashMap<List<Feature>, List<String>> map = new LinkedHashMap<List<Feature>, List<String>>();
+		LinkedHashMap<List<Feature>, List<String>> map2 = new LinkedHashMap<List<Feature>, List<String>>();
 		List<Feature> featureList1 = new ArrayList<Feature>();
 		List<Feature> featureList2 = new ArrayList<Feature>();
-		featureList1.add(new Feature("shape","flat"));
-		featureList2.add(new Feature("shape","flat"));
+		List<Feature> featureList3a = new ArrayList<Feature>();
+		List<Feature> featureList3b = new ArrayList<Feature>();
+		featureList1.add(new Feature("shape", "flat"));
+		featureList2.add(new Feature("shape", "flat"));
+		featureList3a.add(new Feature("shape", "fluid"));
+		featureList3b.add(new Feature("shape", "hollow"));
 		List<String> valueList1 = new ArrayList<String>();
 		List<String> valueList2 = new ArrayList<String>();
+		List<String> valueList3a = new ArrayList<String>();
+		List<String> valueList3b = new ArrayList<String>();
 		valueList1.add("place");
+		// V: put als Alternative
+		valueList1.add("put");
 		valueList2.add("on");
 		valueList2.add("on top of");
+		valueList3a.add("place");
+		valueList3a.add("put");
+		valueList3b.add("into");
 		map.put(featureList1, valueList1);
 		map.put(featureList2, valueList2);
-		Template t = new Template("placing",map);
+		map2.put(featureList3a, valueList3a);
+		map2.put(featureList3b, valueList3b);
+		Template t = new Template("placing", map);
 		finder.addTemplate(t);
+		Template t2 = new Template("placing", map2);
+		finder.addTemplate(t2);
 	}
-	
+
 }

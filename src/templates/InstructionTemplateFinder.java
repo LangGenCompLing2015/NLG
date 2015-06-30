@@ -19,7 +19,7 @@ public class InstructionTemplateFinder {
 	}
 
 	/**
-	 * Method, which searches all existing templates for ones, that fit the
+	 * Method, which searches all existing templates for ones, that fits the
 	 * features of the given words.
 	 * @param verbType the verb type specified in the message (e.g. "placing")
 	 * @param wordFeatures features of all words in the message
