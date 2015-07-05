@@ -16,7 +16,7 @@ public class NLG {
 			FileReader fr = new FileReader("ingredients.txt");
 			br = new BufferedReader(fr);
 
-			String[] strs = br.readLine().split(":");
+			String[] strs = br.readLine().split(":",2);
 			//everything before the ":" is the type of message
 			type = strs[0];
 			//everything else is the message itself

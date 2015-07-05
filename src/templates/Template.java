@@ -11,6 +11,8 @@ public class Template {
 	// Must be LinkedHashMap, since order of insertion matters.
 	private LinkedHashMap<List<Feature>, List<String>> featureMap;
 	private String verbType;
+	
+	private String prep = "";
 
 	public Template(String verbType,
 			LinkedHashMap<List<Feature>, List<String>> featureMap) {
@@ -54,11 +56,17 @@ public class Template {
 	 */
 	public String toString(List<String> wordList) {
 		Random r = new Random();
+		boolean first = true;
 		int i = 0;
 		StringBuilder sb = new StringBuilder();
 		for (List<String> l : featureMap.values()) {
 			int index = r.nextInt(l.size());
+			
 			String s = l.get(index);
+			if(first){
+				prep = s;
+				first = false;
+			}
 			String word = wordList.get(i);
 			sb.append(s + " " + word + " ");
 			i++;
@@ -66,4 +74,10 @@ public class Template {
 		}
 		return sb.toString();
 	}
+	
+	public String getPrep(){
+		return prep;
+	}
+	
+
 }
