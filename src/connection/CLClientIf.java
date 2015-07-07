@@ -50,7 +50,7 @@ public class CLClientIf {
 	    	}
 	    }
 	    
-	    private InputStream getInputStream() {
+	    public InputStream getInputStream() {
 	    	try {
 	    		return CLCommunicationSocket.getInputStream();
 		    }

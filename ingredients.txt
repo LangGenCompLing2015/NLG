@@ -1,1 +1,1 @@
-instructions:placing,toast,desk
+instructions:1/7:placing;2,slice,tomato;1,,toast

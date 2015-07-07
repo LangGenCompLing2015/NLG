@@ -70,7 +70,7 @@ public class InstructionBuilder implements Builder {
 			t = possibleTemplates.get(r.nextInt(possibleTemplates
 					.size()));
 			buildSentence(t.toString(inputWords));
-			System.out.println(t.toString(inputWords));
+			//System.out.println(t.toString(inputWords));
 			System.out.println(realiser.realise(clause));
 		} catch (Exception e) {
 			System.err.println("No matching templates found!");

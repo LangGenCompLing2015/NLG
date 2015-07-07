@@ -3,10 +3,17 @@ package prog;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.Socket;
+import java.net.SocketAddress;
+
+import connection.CLClientIf;
 
 public class NLG {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		CLClientIf cl = new CLClientIf("", 50018);
+		cl.setAsInOut();
 		Builder builder;
 		BufferedReader br;
 		String type = "";
