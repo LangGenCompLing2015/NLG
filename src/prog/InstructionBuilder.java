@@ -34,7 +34,7 @@ public class InstructionBuilder implements Builder {
 	private SPhraseSpec clause;
 
 	private String verbType;
-	
+
 	private int maxNum;
 	private int currentNum;
 	private Template t;
@@ -47,7 +47,7 @@ public class InstructionBuilder implements Builder {
 		lexicon.setUpLexicon();
 		nlgFactory = new NLGFactory(lexicon.getLexicon());
 		realiser = new Realiser(lexicon.getLexicon());
-		clause= nlgFactory.createClause();
+		clause = nlgFactory.createClause();
 	}
 
 	public void start() {
@@ -60,17 +60,15 @@ public class InstructionBuilder implements Builder {
 			WordElement w = lex.getWord(s);
 			Map<String, Object> wordFeature = w.getAllFeatures();
 			featureList.add(wordFeature);
-			
 
 		}
 		// V: debug
 		try {
 			List<Template> possibleTemplates = finder.findTemplate(verbType,
 					featureList);
-			t = possibleTemplates.get(r.nextInt(possibleTemplates
-					.size()));
+			t = possibleTemplates.get(r.nextInt(possibleTemplates.size()));
 			buildSentence(t.toString(inputWords));
-			//System.out.println(t.toString(inputWords));
+			// System.out.println(t.toString(inputWords));
 			System.out.println(realiser.realise(clause));
 		} catch (Exception e) {
 			System.err.println("No matching templates found!");
@@ -81,8 +79,8 @@ public class InstructionBuilder implements Builder {
 		String[] splitSentence = sentence.split(" ");
 		String verb = splitSentence[0];
 		String prep = splitSentence[2];
-		String object = splitSentence[splitSentence.length-1];
-		clause.setVerb(verb);		
+		String object = splitSentence[splitSentence.length - 1];
+		clause.setVerb(verb);
 		NPPhraseSpec np = nlgFactory.createNounPhrase("the", object);
 		PPPhraseSpec prepPhrase = nlgFactory.createPrepositionPhrase(prep, np);
 		clause.addComplement(prepPhrase);
@@ -90,7 +88,7 @@ public class InstructionBuilder implements Builder {
 	}
 
 	private void getNUmOfInstructions() {
-		String[] split = instructions.split(":",2);
+		String[] split = instructions.split(":", 2);
 		instructions = split[1];
 		String numbers = split[0];
 		String[] splitnumber = numbers.split("/");
@@ -107,13 +105,14 @@ public class InstructionBuilder implements Builder {
 		boolean first = true;
 		List<String> inputWords = new ArrayList<String>();
 		String[] split = instructions.split(";");
-		
+
 		verbType = split[0];
 		for (int i = 1; i < split.length; i++) {
 			NPPhraseSpec ph;
 			String[] str = split[i].split(",");
 			inputWords.add(str[2]);
-			NLGElement el1 = nlgFactory.createWord(str[1], LexicalCategory.NOUN);
+			NLGElement el1 = nlgFactory
+					.createWord(str[1], LexicalCategory.NOUN);
 			NLGElement el2 = nlgFactory
 					.createWord(str[2], LexicalCategory.NOUN);
 			boolean plural = Integer.parseInt(str[0]) != 1;
@@ -127,13 +126,12 @@ public class InstructionBuilder implements Builder {
 				ph = nlgFactory.createNounPhrase("the", el2);
 			}
 
-			if(first){
+			if (first) {
 				clause.setObject(ph);
 				first = false;
 			}
 		}
 
-		
 		return inputWords;
 	}
 
